@@ -13,3 +13,11 @@ php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7
 php composer-setup.php --install-dir=bin --filename=composer && \
 php -r "unlink('composer-setup.php');" && \
 echo "export COMPOSER_ALLOW_SUPERUSER=1" >> ~/.bashrc
+
+RUN php -r "copy('http://static.phpmd.org/php/2.6.0/phpmd.phar','/bin/phpmd');" && \
+chmod 777 /bin/phpmd
+
+RUN apt-get remove pkg-config libssl-dev unzip -y && \
+apt-get autoremove --purge -y
+
+CMD /bin/composer
